@@ -38,8 +38,9 @@
 // ---------------------------------------------------------------------------
 //  1) CONFIGURATION WiFi  — À MODIFIER par l'élève / le professeur
 // ---------------------------------------------------------------------------
-const char* WIFI_SSID     = "Kiiway";
-const char* WIFI_PASSWORD = "endgame010824";
+const char* WIFI_SSID     = "SSID_DE_LA_SALLE";
+const char* WIFI_PASSWORD = "MOT_DE_PASSE";
+
 
 // ---------------------------------------------------------------------------
 //  2) Broches SDIO entre l'ESP32-P4 et le coprocesseur WiFi ESP32-C6 du Tab5
