@@ -1,0 +1,666 @@
+[
+  {
+    "id": "tab_led",
+    "type": "tab",
+    "label": "TP HTTP - LED RGB Tab5",
+    "disabled": false,
+    "info": "TP STI2D SIN Lycée Baggio — commande d'une LED RGB sur Tab5 par requêtes HTTP"
+  },
+  {
+    "id": "c1",
+    "type": "comment",
+    "z": "tab_led",
+    "name": "① CONFIGURATION : mettre ici l'adresse IP affichée sur l'écran du Tab5",
+    "info": "",
+    "x": 290,
+    "y": 40,
+    "wires": []
+  },
+  {
+    "id": "cfg_inj",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Au démarrage",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "0.5",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 130,
+    "y": 80,
+    "wires": [
+      [
+        "cfg_set"
+      ]
+    ]
+  },
+  {
+    "id": "cfg_set",
+    "type": "change",
+    "z": "tab_led",
+    "name": "IP du Tab5 = 192.168.1.50",
+    "rules": [
+      {
+        "t": "set",
+        "p": "tab5_ip",
+        "pt": "flow",
+        "to": "192.168.1.50",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "to": "",
+    "reg": false,
+    "x": 360,
+    "y": 80,
+    "wires": [
+      []
+    ],
+    "from": ""
+  },
+  {
+    "id": "c2",
+    "type": "comment",
+    "z": "tab_led",
+    "name": "② NODE-RED CLIENT HTTP : chaque bouton inject envoie une requête GET au Tab5",
+    "info": "",
+    "x": 320,
+    "y": 140,
+    "wires": []
+  },
+  {
+    "id": "inj0",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Rouge ON",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "/api/led?color=red&state=on",
+    "payloadType": "str",
+    "x": 150,
+    "y": 180,
+    "wires": [
+      [
+        "build"
+      ]
+    ]
+  },
+  {
+    "id": "inj1",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Rouge OFF",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "/api/led?color=red&state=off",
+    "payloadType": "str",
+    "x": 150,
+    "y": 220,
+    "wires": [
+      [
+        "build"
+      ]
+    ]
+  },
+  {
+    "id": "inj2",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Vert bascule",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "/api/led?color=green&state=toggle",
+    "payloadType": "str",
+    "x": 150,
+    "y": 260,
+    "wires": [
+      [
+        "build"
+      ]
+    ]
+  },
+  {
+    "id": "inj3",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Bleu bascule",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "/api/led?color=blue&state=toggle",
+    "payloadType": "str",
+    "x": 150,
+    "y": 300,
+    "wires": [
+      [
+        "build"
+      ]
+    ]
+  },
+  {
+    "id": "inj4",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Blanc (R+V+B)",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "/api/rgb?r=1&g=1&b=1",
+    "payloadType": "str",
+    "x": 150,
+    "y": 340,
+    "wires": [
+      [
+        "build"
+      ]
+    ]
+  },
+  {
+    "id": "inj5",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Violet (R+B)",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "/api/rgb?r=1&g=0&b=1",
+    "payloadType": "str",
+    "x": 150,
+    "y": 380,
+    "wires": [
+      [
+        "build"
+      ]
+    ]
+  },
+  {
+    "id": "inj6",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Jaune (R+V)",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "/api/rgb?r=1&g=1&b=0",
+    "payloadType": "str",
+    "x": 150,
+    "y": 420,
+    "wires": [
+      [
+        "build"
+      ]
+    ]
+  },
+  {
+    "id": "inj7",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Tout éteindre",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "/api/off",
+    "payloadType": "str",
+    "x": 150,
+    "y": 460,
+    "wires": [
+      [
+        "build"
+      ]
+    ]
+  },
+  {
+    "id": "inj8",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Lire l'état",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "/api/state",
+    "payloadType": "str",
+    "x": 150,
+    "y": 500,
+    "wires": [
+      [
+        "build"
+      ]
+    ]
+  },
+  {
+    "id": "inj9",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Route inconnue (test 404)",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "/api/xyz",
+    "payloadType": "str",
+    "x": 150,
+    "y": 540,
+    "wires": [
+      [
+        "build"
+      ]
+    ]
+  },
+  {
+    "id": "build",
+    "type": "function",
+    "z": "tab_led",
+    "name": "Construire l'URL",
+    "func": "// msg.payload contient le chemin de la requête, ex : /api/led?color=red&state=on\nconst ip = flow.get('tab5_ip') || '192.168.1.50';\nmsg.url = 'http://' + ip + msg.payload;   // URL complète\nmsg.method = 'GET';                        // méthode HTTP\nnode.status({fill:'blue', shape:'dot', text:'GET ' + msg.payload});\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 400,
+    "y": 360,
+    "wires": [
+      [
+        "httpreq"
+      ]
+    ]
+  },
+  {
+    "id": "httpreq",
+    "type": "http request",
+    "z": "tab_led",
+    "name": "Requête HTTP vers Tab5",
+    "method": "use",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "x": 620,
+    "y": 360,
+    "wires": [
+      [
+        "parse"
+      ]
+    ]
+  },
+  {
+    "id": "parse",
+    "type": "function",
+    "z": "tab_led",
+    "name": "Analyser la réponse",
+    "func": "// msg.statusCode : code HTTP (200 = OK, 400 = mauvaise requête, 404 = introuvable)\n// msg.payload    : réponse JSON du Tab5, ex : {\"red\":1,\"green\":0,\"blue\":0}\nconst code = msg.statusCode;\nif (code === 200) {\n    const s = msg.payload;\n    const txt = 'R=' + s.red + ' V=' + s.green + ' B=' + s.blue;\n    node.status({fill:'green', shape:'dot', text: code + ' OK  ' + txt});\n} else {\n    node.status({fill:'red', shape:'ring', text: 'Erreur ' + code});\n}\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 840,
+    "y": 360,
+    "wires": [
+      [
+        "dbg"
+      ]
+    ]
+  },
+  {
+    "id": "dbg",
+    "type": "debug",
+    "z": "tab_led",
+    "name": "Réponse du Tab5",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1050,
+    "y": 360,
+    "wires": []
+  },
+  {
+    "id": "c3",
+    "type": "comment",
+    "z": "tab_led",
+    "name": "③ SURVEILLANCE : lecture de l'état toutes les 2 s (polling)",
+    "info": "",
+    "x": 260,
+    "y": 620,
+    "wires": []
+  },
+  {
+    "id": "poll",
+    "type": "inject",
+    "z": "tab_led",
+    "name": "Toutes les 2 s",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "2",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "/api/state",
+    "payloadType": "str",
+    "x": 140,
+    "y": 660,
+    "wires": [
+      [
+        "pbuild"
+      ]
+    ]
+  },
+  {
+    "id": "pbuild",
+    "type": "function",
+    "z": "tab_led",
+    "name": "URL /api/state",
+    "func": "msg.url = 'http://' + (flow.get('tab5_ip') || '192.168.1.50') + '/api/state';\nmsg.method = 'GET';\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 340,
+    "y": 660,
+    "wires": [
+      [
+        "preq"
+      ]
+    ]
+  },
+  {
+    "id": "preq",
+    "type": "http request",
+    "z": "tab_led",
+    "name": "GET /api/state",
+    "method": "use",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "x": 540,
+    "y": 660,
+    "wires": [
+      [
+        "pstat"
+      ]
+    ]
+  },
+  {
+    "id": "pstat",
+    "type": "function",
+    "z": "tab_led",
+    "name": "Afficher l'état",
+    "func": "if (msg.statusCode !== 200) {\n    node.status({fill:'red', shape:'ring', text:'Tab5 injoignable'});\n    return null;\n}\nconst s = msg.payload;\nconst noms = [];\nif (s.red) noms.push('ROUGE');\nif (s.green) noms.push('VERT');\nif (s.blue) noms.push('BLEU');\nconst txt = noms.length ? noms.join(' + ') : 'éteinte';\nnode.status({fill: noms.length ? 'green' : 'grey', shape:'dot', text:'LED : ' + txt + ' | ' + s.requests + ' requêtes'});\nflow.set('etat_led', s);   // mémorisé pour la page web Node-RED\nreturn null;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 740,
+    "y": 660,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "c4",
+    "type": "comment",
+    "z": "tab_led",
+    "name": "④ NODE-RED SERVEUR HTTP : page web http://<IP_NodeRED>:1880/led-rgb (relais vers le Tab5)",
+    "info": "",
+    "x": 360,
+    "y": 720,
+    "wires": []
+  },
+  {
+    "id": "hin_page",
+    "type": "http in",
+    "z": "tab_led",
+    "name": "",
+    "url": "/led-rgb",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 140,
+    "y": 760,
+    "wires": [
+      [
+        "tpl"
+      ]
+    ]
+  },
+  {
+    "id": "tpl",
+    "type": "template",
+    "z": "tab_led",
+    "name": "Page HTML",
+    "field": "payload",
+    "fieldType": "msg",
+    "format": "html",
+    "syntax": "plain",
+    "template": "<!DOCTYPE html>\n<html lang=\"fr\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Node-RED - LED RGB</title>\n<style>\nbody{font-family:Arial,sans-serif;background:#1b1b1b;color:#fff;text-align:center;padding:20px}\nh1{color:#ff8a65}\n.led{width:110px;height:110px;border-radius:50%;margin:20px auto;border:4px solid #fff;background:#000}\nbutton{font-size:18px;padding:14px 18px;margin:6px;border:none;border-radius:10px;color:#fff;cursor:pointer;min-width:110px}\n.r{background:#c0392b}.g{background:#1e8449}.b{background:#1f4e9e}.o{background:#555}.w{background:#999;color:#000}\npre{background:#000;color:#7CFC9A;text-align:left;padding:10px;border-radius:8px;max-width:520px;margin:20px auto;white-space:pre-wrap}\n</style></head><body>\n<h1>Pilotage via Node-RED</h1>\n<p>Navigateur &rarr; Node-RED (port 1880) &rarr; Tab5 (port 80)</p>\n<div class=\"led\" id=\"led\"></div>\n<button class=\"r\" onclick=\"cmd('/api/led?color=red&state=toggle')\">Rouge</button>\n<button class=\"g\" onclick=\"cmd('/api/led?color=green&state=toggle')\">Vert</button>\n<button class=\"b\" onclick=\"cmd('/api/led?color=blue&state=toggle')\">Bleu</button><br>\n<button class=\"w\" onclick=\"cmd('/api/rgb?r=1&g=1&b=1')\">Blanc</button>\n<button class=\"o\" onclick=\"cmd('/api/off')\">Éteindre</button>\n<pre id=\"log\">...</pre>\n<script>\nasync function cmd(path){\n  const rep = await fetch('/led-rgb/cmd?path=' + encodeURIComponent(path));\n  const txt = await rep.text();\n  document.getElementById('log').textContent = 'Node-RED a relayé : GET ' + path + '\\nCode : ' + rep.status + '\\nRéponse : ' + txt;\n  try{ show(JSON.parse(txt)); }catch(e){}\n}\nfunction show(s){\n  document.getElementById('led').style.background =\n   'rgb(' + (s.red?255:0) + ',' + (s.green?255:0) + ',' + (s.blue?255:0) + ')';\n}\nsetInterval(()=>cmd('/api/state'), 2000); cmd('/api/state');\n</script></body></html>",
+    "output": "str",
+    "x": 330,
+    "y": 760,
+    "wires": [
+      [
+        "hout_page"
+      ]
+    ]
+  },
+  {
+    "id": "hout_page",
+    "type": "http response",
+    "z": "tab_led",
+    "name": "",
+    "statusCode": "",
+    "headers": {
+      "content-type": "text/html; charset=utf-8"
+    },
+    "x": 510,
+    "y": 760,
+    "wires": []
+  },
+  {
+    "id": "hin_cmd",
+    "type": "http in",
+    "z": "tab_led",
+    "name": "",
+    "url": "/led-rgb/cmd",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 150,
+    "y": 820,
+    "wires": [
+      [
+        "relay"
+      ]
+    ]
+  },
+  {
+    "id": "relay",
+    "type": "function",
+    "z": "tab_led",
+    "name": "Relayer vers le Tab5",
+    "func": "// La page envoie ?path=/api/led?color=red&state=toggle\nconst path = msg.req.query.path || '/api/state';\nif (!path.startsWith('/api/')) {          // sécurité : on ne relaie que l'API\n    msg.statusCode = 400;\n    msg.payload = {error: 'chemin interdit'};\n    return [null, msg];\n}\nmsg.url = 'http://' + (flow.get('tab5_ip') || '192.168.1.50') + path;\nmsg.method = 'GET';\ndelete msg.payload;\nreturn [msg, null];",
+    "outputs": 2,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 360,
+    "y": 820,
+    "wires": [
+      [
+        "rreq"
+      ],
+      [
+        "hout_cmd"
+      ]
+    ]
+  },
+  {
+    "id": "rreq",
+    "type": "http request",
+    "z": "tab_led",
+    "name": "GET vers Tab5",
+    "method": "use",
+    "ret": "txt",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "x": 570,
+    "y": 800,
+    "wires": [
+      [
+        "clean"
+      ]
+    ]
+  },
+  {
+    "id": "clean",
+    "type": "change",
+    "z": "tab_led",
+    "name": "Nettoyer les en-têtes",
+    "rules": [
+      {
+        "t": "set",
+        "p": "headers",
+        "pt": "msg",
+        "to": "{\"content-type\":\"application/json\"}",
+        "tot": "json"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "to": "",
+    "reg": false,
+    "x": 780,
+    "y": 780,
+    "wires": [
+      [
+        "hout_cmd"
+      ]
+    ],
+    "from": ""
+  },
+  {
+    "id": "hout_cmd",
+    "type": "http response",
+    "z": "tab_led",
+    "name": "Réponse au navigateur",
+    "statusCode": "",
+    "headers": {},
+    "x": 1000,
+    "y": 820,
+    "wires": []
+  }
+]
